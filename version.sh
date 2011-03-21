@@ -1,5 +1,4 @@
 
-
 if [ "$ZSH_VERSION" ]; then
 	SH_NAME="zsh"
 	SH_VERSION="$ZSH_VERSION"
@@ -10,9 +9,13 @@ elif [ "$KSH_VERSION" ]; then
 	SH_NAME="ksh"
 	SH_VERSION="$KSH_VERSION"
 else
+	a=`IFS=X; echoX1 2> /dev/null`
+	##echo $a
+	if [ "x$a" = "x1" ]; then
+		SH_NAME="bourne"
 	# check for broken ps, which indicates we're running under
 	# busybox. Then assume login shell == current shell
-	if [ "`ps -p$$ | wc -l `" -ne 2 ]; then
+	elif [ "`ps -p$$ | wc -l `" -ne 2 ]; then
 		SH_NAME=`basename $SHELL`
 		SH_TYPE="busybox"
 	else
@@ -30,4 +33,3 @@ export SH_NAME
 export SH_VERSION
 
 echo $SH_NAME $SH_VERSION
-
