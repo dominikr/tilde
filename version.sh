@@ -9,9 +9,7 @@ elif [ "$KSH_VERSION" ]; then
 	SH_NAME="ksh"
 	SH_VERSION="$KSH_VERSION"
 else
-	a=`IFS=X; echoX1 2> /dev/null`
-	##echo $a
-	if [ "x$a" = "x1" ]; then
+	if [ "x`IFS=X; echoX1 2> /dev/null`" = "x1" ]; then
 		SH_NAME="bourne"
 	# check for broken ps, which indicates we're running under
 	# busybox. Then assume login shell == current shell

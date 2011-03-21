@@ -1,0 +1,11 @@
+#!/bin/mksh -x
+
+dash $*
+bash $*
+zsh $*
+ksh $*
+pdksh $*
+mksh $*
+jsh $*
+busybox ash $*
+
