@@ -1,26 +1,26 @@
 
+
 set . .
-var=$*;   printf '%s '  "$var"
-var=$@;   printf '%s '  "$var"
-var="$*"; printf '%s '  "$var"
-var="$@"; printf '%s\n' "$var"
+IFS='x'
+v1=$*
+v2=$@
+v3="$*"
+v4="$@"
 
+set . .
+IFS=''
+v5=$*
+v6=$@
+v7="$*"
+v8="$@"
 
+set . .
+IFS='\\'
+v9=$*
+v0=$@
+vA="$*"
+vB="$@"
 
-set . . ; IFS='x'
-var=$*;   printf '%s '  "$var"
-var=$@;   printf '%s '  "$var"
-var="$*"; printf '%s '  "$var"
-var="$@"; printf '%s\n' "$var"
+IFSid=`echo "$v1$v2$v3$v4$v5$v6$v7$v8$v9$v0$vA$vB" | sed 's/\.x\./1/g; s/\. \./2/g; s/\.\\\./3/g; s/\.\./4/g' `
+echo $IFSid
 
-
-set . . ; IFS=''
-var=$*;   printf '%s '  "$var"
-var=$@;   printf '%s '  "$var"
-var="$*"; printf '%s '  "$var"
-var="$@"; printf '%s\n' "$var"
-set . . ; IFS='\\'
-var=$*;   printf '%s '  "$var"
-var=$@;   printf '%s '  "$var"
-var="$*"; printf '%s '  "$var"
-var="$@"; printf '%s\n' "$var"

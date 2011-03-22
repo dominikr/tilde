@@ -1,11 +1,14 @@
 #!/bin/mksh -x
 
-dash $*
 bash $*
 zsh $*
 ksh $*
 pdksh $*
+posh $*
 mksh $*
 jsh $*
+dash $*
 busybox ash $*
+./busybox hush $*
+./v7sh $*
 

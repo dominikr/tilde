@@ -1,7 +1,28 @@
-#!/home/balou/shlib/moo
+#!/bin/sh
 
-ARG0=`cat /proc/$$/cmdline | tr "\000" " "`
-ARG1=`sed -n "1 s/.*\W\(\w*\)$/\1/p" /proc/$$/status`
+set . .
+IFS='x'
+v1=$*
+v2=$@
+v3="$*"
+v4="$@"
+
+set . .
+IFS=''
+v5=$*
+v6=$@
+v7="$*"
+v8="$@"
+
+set . .
+IFS='\\'
+v9=$*
+v0=$@
+vA="$*"
+vB="$@"
+
+IFSid=`echo "$v1$v2$v3$v4$v5$v6$v7$v8$v9$v0$vA$vB" | sed 's/\.x\./1/g; s/\. \./2/g; s/\.\\\./3/g; s/\.\./4/g' `
+
 if [ "$ZSH_VERSION" ]; then
 	SH_NAME="zsh"
 	SH_VERSION="$ZSH_VERSION"
@@ -17,18 +38,30 @@ elif [ "$KSH_VERSION" ]; then
 elif [ "x`IFS=X; echoX1 2> /dev/null`" = "x1" ]; then
 	SH_NAME="bourne"
 
-# check for broken ps, which indicates we're running under
-# busybox. Then assume login shell == current shell
+elif [ "x$IFSid" = "x121242423232" ]; then
+	SH_NAME="ksh"
+	# we have to put it in an eval, because stupid ash wants to
+	# parse it even though it doesn't enter this if clause
+	eval 'SH_VERSION=${.sh.version}'
+
+elif [ "x$IFSid" = "x111144444444" ]; then
+	SH_NAME="hush"
+
+elif [ "x$IFSid" = "x111144443333" ]; then
+	SH_NAME="ash"
+
+elif [ "x$IFSid" = "x111122423333" ]; then
+	if [ 010 -lt 9 ]; then
+		SH_NAME="posh"
+	else
+		echo "unknown shell..."
+	fi
+
 else
-	#SH_NAME=`ps -p$$ | tail -1 | awk ' { print $4 } '`
-	#SH_NAME=`ps -p$$ | sed -n '$ { s/\W\(\w*\)$/\1/p } '`
-	echo X:$ARG0 Y:$ARG1
+	echo "unknown shell..."
 fi
 
-# we can't check for $.sh.version before, because that
-# leads to syntax errors in all other shells
 #export SH_NAME
 #export SH_VERSION
 
 echo $SH_NAME $SH_VERSION 
-read foo
