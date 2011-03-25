@@ -1,5 +1,7 @@
 #!/bin/sh
 
+#todo: ksh88: 111122424433
+#check $SECOND for ksh88/93
 set . .
 IFS='x'
 v1=$*
